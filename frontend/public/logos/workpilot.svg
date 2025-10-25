@@ -1,0 +1,11 @@
+
+<svg width="250" height="100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .cursive {
+      font-family: "Brush Script MT", cursive;
+      font-size: 48px;
+      fill: #2c3e50;
+    }
+  </style>
+  <text x="20" y="65" class="cursive">Work Pilot</text>
+</svg>

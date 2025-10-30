@@ -43,7 +43,7 @@ const SignIn = () => {
       <Card className=" w-full shadow-xl">
         <CardHeader className="text-center mb-3">
           <CardTitle className="text-2xl font-bold">
-            Welcome to Project Pilot
+            Welcome to PM Pilot
           </CardTitle>
           <CardDescription className="text-sm text-muted-foreground">
             Plese sign-in to your account to continue

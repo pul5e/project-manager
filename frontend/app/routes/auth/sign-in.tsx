@@ -20,10 +20,16 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useLoginMutation } from "@/hooks/use-auth";
+import { toast } from "sonner";
+import { Loader, Loader2 } from "lucide-react";
+import { useAuth } from "@/provider/auth-context";
 
 type SignInFormData = z.infer<typeof signInSchema>;
 const SignIn = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -32,8 +38,23 @@ const SignIn = () => {
     },
   });
 
+  const { mutate, isPending } = useLoginMutation();
+
   const handleOnSubmit = (values: SignInFormData) => {
-    console.log(values);
+    mutate(values, {
+      onSuccess: (data) => {
+        login(data);
+        console.log(data);
+        toast.success("Login Successfull");
+        navigate("/dashboard");
+      },
+      onError: (error: any) => {
+        const errorMessage =
+          error.response?.data?.message || "An error occured";
+        console.log(error);
+        toast.error(errorMessage);
+      },
+    });
   };
   return (
     <div
@@ -107,8 +128,9 @@ const SignIn = () => {
               <Button
                 type="submit"
                 className="w-full bg text-white py-2 rounded-md hover:bg-blue-700 transition"
+                disabled={isPending}
               >
-                Sign In
+                {isPending ? <Loader2 className="w-4 h-4 mr-2" /> : "Sign-in"}
               </Button>
             </form>
           </Form>

@@ -37,9 +37,10 @@ const postData = async <T>(path: string, data: unknown): Promise<T> => {
     const response = await api.post(path, data);
     return response.data;
   } catch (error: any) {
-    // Handle API errors gracefully
-    const message = error.response?.data?.message || "Request failed";
-    throw new Error(message); // throw simplified error for easier catch
+    if (error.response) {
+      throw error; // Preserve full Axios error
+    }
+    throw new Error(error.message || "Network error");
   }
 };
 

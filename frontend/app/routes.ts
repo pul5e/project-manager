@@ -33,6 +33,10 @@ export default [
     route("reset-password", "routes/auth/reset-password.tsx"),
     route("verify-email", "routes/auth/verify-email.tsx"),
   ]),
+
+  layout("routes/dashboard/dashboard-layout.tsx", [
+    route("dashboard", "routes/dashboard/index.tsx"),
+  ]),
 ] satisfies RouteConfig;
 
 // This configuration ensures a clean and organized routing structure
